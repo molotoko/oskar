@@ -122,9 +122,9 @@ def send_text(message):
     hello_list = ['привет', 'hello', 'hi', 'приветствую', 'здравствуй', 'здравствуйте', 'хелло', 'хэлло', 'йоу',
                   'здрасьте', 'дратути', 'драсьте']
     if message.text.lower() in hello_list:
-        bot.send_message(message.chat.id, 'Привет, киноман!')
+        bot.send_message(message.chat.id, 'Привет, киноман!', reply_to_message_id=message.message_id)
     elif message.text.lower() == 'пока':
-        bot.send_message(message.chat.id, 'I\'ll be back!')
+        bot.send_message(message.chat.id, 'I\'ll be back!', reply_to_message_id=message.message_id)
 
 
 bot.polling()
