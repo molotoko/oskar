@@ -3,10 +3,9 @@ import telebot
 import requests
 import lxml.html as html
 import unicodedata
+from config import telegram_api_key
 
-from settings import api_key
-
-bot = telebot.TeleBot(api_key)
+bot = telebot.TeleBot(telegram_api_key)
 members_list = [
         'Лиза', 'Дроид', 'МикМал', 'Маду', 'Фывдло', 'Олень', 'Ира', 'Анечка', 'Кэт', 'Милли', 'Гедарк', 'Марта',
         'Цунали', 'Кокос'
