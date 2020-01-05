@@ -22,8 +22,9 @@ VERSION = '0.1.0'
 
 # What packages are required for this module to be executed?
 REQUIRED = [
-    'requests', 'pyTelegramBotAPI', 'lxml', 'google-api-python-client', 'google-auth-httplib2', 'google-auth-oauthlib',
-    'gspread', 'oauth2client'
+    'requests', 'pyTelegramBotAPI', 'lxml',
+    # 'google-api-python-client', 'google-auth-httplib2', 'google-auth-oauthlib',
+    # 'gspread', 'oauth2client'
 ]
 
 # What packages are optional?
