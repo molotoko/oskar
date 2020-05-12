@@ -140,7 +140,7 @@ def start_message(message):
 
 @bot.message_handler(content_types=['sticker'])
 def send_sticker_id(message):
-    bot.send_sticker(message.chat.id, message.sticker.file_id)
+    bot.send_message(message.chat.id, message.sticker.file_id)
 
 
 bot.polling()
