@@ -134,7 +134,7 @@ def send_text(message):
 
 @bot.message_handler(commands=['droed'])
 def start_message(message):
-    bot.send_sticker(message.chat.id, 'sticker1.webp')
-    bot.send_sticker(message.chat.id, 'sticker2.webp')
+    bot.send_sticker(message.chat.id, '/sticker1.webp')
+    bot.send_sticker(message.chat.id, '/sticker2.webp')
 
 bot.polling()
