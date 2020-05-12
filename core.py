@@ -7,9 +7,9 @@ from config import telegram_api_key
 
 bot = telebot.TeleBot(telegram_api_key)
 members_list = [
-        'Лиза', 'Дроид', 'МикМал', 'Маду', 'Фывдло', 'Олень', 'Ира', 'Анечка', 'Кэт', 'Милли', 'Гедарк', 'Марта',
-        'Цунали', 'Кокос', 'Лапш'
-    ]
+    '@molotoko', '@HKEY47', '@mikmall', '@madurmanov', '@fyvdlo', '@wilddeer', '@Henpukuhime', '@anechka_persik',
+    '@sleepercat0_0', '@Milli_M', '@Dart_gedark', '@nogpyra', '@tsynali', '@kokos_89', '@beforescriptum'
+]
 
 
 @bot.message_handler(commands=['start'])
@@ -18,15 +18,17 @@ def start_message(message):
 
 
 @bot.message_handler(commands=['help'])
-def get_vip(message):
+def help_me(message):
     bot.send_message(
         message.chat.id,
-        f'Добро пожаловать к Оскару в Киноклуб! Ниже представлен список моих услуг. Помните: судьба может сыграть с вами'
-        f' злую шутку!\n'
+        f'Добро пожаловать к Оскару в Киноклуб! Не считая меня, в клубе уже *{len(members_list)}* участников! '
+        f'Ниже представлен список моих услуг. '
+        f'Помните: судьба может сыграть с вами злую шутку!\n'
         f'/member расскажет обо всех ваших кинотайнах;\n'
         f'/film выберет за вас случайное кино;\n'
         f'/genre поможет выбрать жанр для голосований (если повезет — с эротикой);\n'
-        f'/vip определит особо голосистого участника этого голосования;\n'
+        f'/vip определит особо голосистого участника этого голосования: '
+        f'может отдать 4 голоса вместо 2, максимум 2 за 1 фильм;\n'
         f'/kinoman даст одному из вас возможность сразу предложить фильм вне очереди.',
         parse_mode='Markdown'
     )
@@ -36,7 +38,10 @@ def get_vip(message):
 def member_info(message):
     get_info = 'собрать инфу из таблички'
     find_member_info = 'вытащить инфу о конкретном члене клуба'
-    bot.send_message(message.chat.id, f'Ваша статистика пока недоступна.')
+    bot.send_message(
+        message.chat.id,
+        f'Ваша статистика пока недоступна. И будет недоступна еще какое-то время. Заполняйте табличку!'
+    )
 
 
 @bot.message_handler(commands=['film'])
@@ -126,5 +131,10 @@ def send_text(message):
     elif message.text.lower() == 'пока':
         bot.send_message(message.chat.id, 'I\'ll be back!', reply_to_message_id=message.message_id)
 
+
+@bot.message_handler(commands=['droed'])
+def start_message(message):
+    bot.send_sticker(message.chat.id, 'sticker1.webp')
+    bot.send_sticker(message.chat.id, 'sticker2.webp')
 
 bot.polling()
