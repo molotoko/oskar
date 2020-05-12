@@ -134,8 +134,12 @@ def send_text(message):
 
 @bot.message_handler(commands=['droed'])
 def start_message(message):
-    bot.send_sticker(message.chat.id, '/sticker1.webp')
-    bot.send_sticker(message.chat.id, '/sticker2.webp')
+    sticker_ids = [
+        'CAACAgIAAxkBAAO1Xrs0GAK_ts-_2AG5lhTO2VwRTS4AAl0BAAJEyQkHfIbn433Oi2gZBA',
+        'CAACAgIAAxkBAAOvXrszrgvwIgKSJj105YntGMYTL7cAAl4BAAJEyQkHQhFYn9ziwn4ZBA'
+    ]
+    bot.send_sticker(message.chat.id, sticker_ids[0])
+    bot.send_sticker(message.chat.id, sticker_ids[1])
 
 
 @bot.message_handler(content_types=['sticker'])
