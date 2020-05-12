@@ -133,7 +133,7 @@ def send_text(message):
 
 
 @bot.message_handler(commands=['droed'])
-def start_message(message):
+def go_to_work(message):
     sticker_ids = [
         'CAACAgIAAxkBAAO1Xrs0GAK_ts-_2AG5lhTO2VwRTS4AAl0BAAJEyQkHfIbn433Oi2gZBA',
         'CAACAgIAAxkBAAOvXrszrgvwIgKSJj105YntGMYTL7cAAl4BAAJEyQkHQhFYn9ziwn4ZBA'
