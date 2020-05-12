@@ -134,12 +134,10 @@ def send_text(message):
 
 @bot.message_handler(commands=['droed'])
 def go_to_work(message):
-    sticker_ids = [
-        'CAACAgIAAxkBAAO1Xrs0GAK_ts-_2AG5lhTO2VwRTS4AAl0BAAJEyQkHfIbn433Oi2gZBA',
-        'CAACAgIAAxkBAAOvXrszrgvwIgKSJj105YntGMYTL7cAAl4BAAJEyQkHQhFYn9ziwn4ZBA'
-    ]
-    bot.send_sticker(message.chat.id, sticker_ids[0])
-    bot.send_sticker(message.chat.id, sticker_ids[1])
+    sticker1 = f'CAACAgIAAxkBAAO1Xrs0GAK_ts-_2AG5lhTO2VwRTS4AAl0BAAJEyQkHfIbn433Oi2gZBA'
+    sticker2 = f'CAACAgIAAxkBAAOvXrszrgvwIgKSJj105YntGMYTL7cAAl4BAAJEyQkHQhFYn9ziwn4ZBA'
+    bot.send_sticker(message.chat.id, str(sticker1))
+    bot.send_sticker(message.chat.id, str(sticker2))
 
 
 @bot.message_handler(content_types=['sticker'])
