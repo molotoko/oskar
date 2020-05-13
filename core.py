@@ -130,7 +130,7 @@ def send_text(message):
         bot.send_message(message.chat.id, 'Привет, киноман!', reply_to_message_id=message.message_id)
     elif message.text.lower() == 'пока':
         bot.send_message(message.chat.id, 'I\'ll be back!', reply_to_message_id=message.message_id)
-    elif message.text.lower() == 'дроед':
+    elif 'дроед' in message.text.lower():
         bot.send_sticker(message.chat.id, 'CAACAgIAAxkBAAOvXrszrgvwIgKSJj105YntGMYTL7cAAl4BAAJEyQkHQhFYn9ziwn4ZBA')
 
 
