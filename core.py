@@ -147,9 +147,9 @@ def go_to_work(message):
     bot.send_sticker(message.chat.id, sticker2, disable_notification=True)
 
 
-@bot.message_handler(content_types=['sticker'])
-def send_sticker_id(message):
-    bot.send_message(message.chat.id, message.sticker.file_id)
+# @bot.message_handler(content_types=['sticker'])
+# def send_sticker_id(message):
+#     bot.send_message(message.chat.id, message.sticker.file_id)
 
 
 bot.polling()
