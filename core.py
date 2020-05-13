@@ -143,7 +143,7 @@ def go_to_work(message):
     # sticker1 = open('/sticker1.webp', 'rb')
     # sticker2 = open('/sticker2.webp', 'rb')
 
-    bot.send_sticker(message.chat.id, sticker1, disable_notification=True)
+    bot.send_sticker(message.chat.id, sticker1, reply_markup=True, disable_notification=True)
     bot.send_sticker(message.chat.id, sticker2, disable_notification=True)
 
 
