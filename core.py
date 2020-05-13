@@ -136,15 +136,15 @@ def send_text(message):
 
 @bot.message_handler(commands=['droed'])
 def go_to_work(message):
-    # sticker1 = f'CAACAgIAAxkBAAO1Xrs0GAK_ts-_2AG5lhTO2VwRTS4AAl0BAAJEyQkHfIbn433Oi2gZBA'
-    # sticker2 = f'CAACAgIAAxkBAAOvXrszrgvwIgKSJj105YntGMYTL7cAAl4BAAJEyQkHQhFYn9ziwn4ZBA'
+    sticker1 = 'CAACAgIAAxkBAAO1Xrs0GAK_ts-_2AG5lhTO2VwRTS4AAl0BAAJEyQkHfIbn433Oi2gZBA'
+    sticker2 = 'CAACAgIAAxkBAAOvXrszrgvwIgKSJj105YntGMYTL7cAAl4BAAJEyQkHQhFYn9ziwn4ZBA'
     stiker1_link = 'https://github.com/molotoko/oskar/blob/master/sticker1.webp'
     stiker2_link = 'https://github.com/molotoko/oskar/blob/master/sticker2.webp'
-    sticker1 = open('/sticker1.webp', 'rb')
-    sticker2 = open('/sticker2.webp', 'rb')
+    # sticker1 = open('/sticker1.webp', 'rb')
+    # sticker2 = open('/sticker2.webp', 'rb')
 
-    bot.send_sticker(message.chat.id, sticker1)
-    bot.send_sticker(message.chat.id, sticker2)
+    bot.send_sticker(message.chat.id, sticker1, disable_notification=True)
+    bot.send_sticker(message.chat.id, sticker2, disable_notification=True)
 
 
 @bot.message_handler(content_types=['sticker'])
