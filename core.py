@@ -138,8 +138,8 @@ def go_to_work(message):
     # sticker2 = f'CAACAgIAAxkBAAOvXrszrgvwIgKSJj105YntGMYTL7cAAl4BAAJEyQkHQhFYn9ziwn4ZBA'
     stiker1_link = 'https://github.com/molotoko/oskar/blob/master/sticker1.webp'
     stiker2_link = 'https://github.com/molotoko/oskar/blob/master/sticker2.webp'
-    sticker1 = open('sticker1.webp', 'rb')
-    sticker2 = open('sticker2.webp', 'rb')
+    sticker1 = open('/sticker1.webp', 'rb')
+    sticker2 = open('/sticker2.webp', 'rb')
 
     bot.send_sticker(message.chat.id, sticker1)
     bot.send_sticker(message.chat.id, sticker2)
