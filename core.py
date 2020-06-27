@@ -10,6 +10,10 @@ members_list = [
     '@molotoko', '@HKEY47', '@mikmall', '@madurmanov', '@fyvdlo', '@wilddeer', '@Henpukuhime', '@anechka_persik',
     '@sleepercat0_0', '@Milli_M', '@Dart_gedark', '@nogpyra', '@tsynali', '@kokos_89', '@beforescriptum'
 ]
+stickers_list = {
+    'droed': 'CAACAgIAAxkBAAO1Xrs0GAK_ts-_2AG5lhTO2VwRTS4AAl0BAAJEyQkHfIbn433Oi2gZBA',
+    'droed_work': 'CAACAgIAAxkBAAOvXrszrgvwIgKSJj105YntGMYTL7cAAl4BAAJEyQkHQhFYn9ziwn4ZBA'
+}
 
 
 @bot.message_handler(commands=['start'])
@@ -29,7 +33,8 @@ def help_me(message):
         f'/genre поможет выбрать жанр для голосований (если повезет — с эротикой);\n'
         f'/vip определит особо голосистого участника этого голосования: '
         f'может отдать 4 голоса вместо 2, максимум 2 за 1 фильм;\n'
-        f'/kinoman даст одному из вас возможность сразу предложить фильм вне очереди.',
+        f'/kinoman даст одному из вас возможность сразу предложить фильм вне очереди.\n'
+        f'/droed пнуть робота.',
         parse_mode='Markdown'
     )
 
@@ -122,6 +127,12 @@ def santa(message):
     )
 
 
+@bot.message_handler(commands=['droed'])
+def go_to_work(message):
+    bot.send_sticker(message.chat.id, stickers_list['droed'])
+    bot.send_sticker(message.chat.id, stickers_list['droed_work'])
+
+
 @bot.message_handler(content_types=['text'])
 def send_text(message):
     hello_list = ['привет', 'hello', 'hi', 'приветствую', 'здравствуй', 'здравствуйте', 'хелло', 'хэлло', 'йоу',
@@ -134,20 +145,6 @@ def send_text(message):
         bot.send_sticker(message.chat.id, 'CAACAgIAAxkBAAOvXrszrgvwIgKSJj105YntGMYTL7cAAl4BAAJEyQkHQhFYn9ziwn4ZBA')
     elif 'дроид' in message.text.lower():
         bot.send_sticker(message.chat.id, 'CAACAgIAAxkBAAOvXrszrgvwIgKSJj105YntGMYTL7cAAl4BAAJEyQkHQhFYn9ziwn4ZBA')
-
-
-
-@bot.message_handler(commands=['droed'])
-def go_to_work(message):
-    sticker1 = 'CAACAgIAAxkBAAO1Xrs0GAK_ts-_2AG5lhTO2VwRTS4AAl0BAAJEyQkHfIbn433Oi2gZBA'
-    sticker2 = 'CAACAgIAAxkBAAOvXrszrgvwIgKSJj105YntGMYTL7cAAl4BAAJEyQkHQhFYn9ziwn4ZBA'
-    stiker1_link = 'https://github.com/molotoko/oskar/blob/master/sticker1.webp'
-    stiker2_link = 'https://github.com/molotoko/oskar/blob/master/sticker2.webp'
-    # sticker1 = open('/sticker1.webp', 'rb')
-    # sticker2 = open('/sticker2.webp', 'rb')
-
-    bot.send_sticker(message.chat.id, sticker1, reply_markup=True, disable_notification=True)
-    bot.send_sticker(message.chat.id, sticker2, disable_notification=True)
 
 
 # @bot.message_handler(content_types=['sticker'])
