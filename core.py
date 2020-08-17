@@ -9,7 +9,7 @@ import time
 
 
 bot = telebot.TeleBot(telegram_api_key)
-kinochat_id = 22222
+kinochat_id = -1001323316776
 members_list = [
     {
         'username': '@molotoko',
@@ -92,7 +92,7 @@ def start_message(message):
 def help_me(message):
     bot.send_message(
         message.chat.id,
-        f'Добро пожаловать к Оскару в Киноклуб: {message.chat.id}! Не считая меня, в клубе уже *{len(members_list)}* участников! '
+        f'Добро пожаловать к Оскару в Киноклуб! Не считая меня, в клубе уже *{len(members_list)}* участников! '
         f'Ниже представлен список моих услуг. '
         f'Помните: судьба может сыграть с вами злую шутку!\n'
         f'/member расскажет обо всех ваших кинотайнах;\n'
