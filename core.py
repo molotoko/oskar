@@ -1,11 +1,15 @@
 import random
 import telebot
+import schedule
 import requests
 import lxml.html as html
 import unicodedata
 from config import telegram_api_key
+import time
+
 
 bot = telebot.TeleBot(telegram_api_key)
+kinochat_id = 22222
 members_list = [
     {
         'username': '@molotoko',
@@ -88,7 +92,7 @@ def start_message(message):
 def help_me(message):
     bot.send_message(
         message.chat.id,
-        f'Добро пожаловать к Оскару в Киноклуб! Не считая меня, в клубе уже *{len(members_list)}* участников! '
+        f'Добро пожаловать к Оскару в Киноклуб: {message.chat.id}! Не считая меня, в клубе уже *{len(members_list)}* участников! '
         f'Ниже представлен список моих услуг. '
         f'Помните: судьба может сыграть с вами злую шутку!\n'
         f'/member расскажет обо всех ваших кинотайнах;\n'
@@ -239,7 +243,7 @@ def random_actor(message):
 
 
 @bot.message_handler(commands=['born'])
-def random_actor(message):
+def born_today(message):
     request_link = 'https://www.imdb.com/feature/bornondate/'
     page = requests.get(request_link)
     tree = html.fromstring(page.text)
@@ -264,6 +268,38 @@ def random_actor(message):
     )
 
 
+def born_today_cron():
+    request_link = 'https://www.imdb.com/feature/bornondate/'
+    page = requests.get(request_link)
+    tree = html.fromstring(page.text)
+
+    born_list = []
+    celebrities = tree.find_class('lister-item')[:5]
+
+    for celebrity in celebrities:
+        celebrity_anchor = celebrity.find_class('lister-item-header')[0].find('a')
+        celebrity_name = celebrity_anchor.text_content().strip()
+        celebrity_link = celebrity_anchor.attrib['href']
+        born_list.append([celebrity_name, celebrity_link])
+
+    born_message = f'Сегодня родились знаменитости:\n'
+    for celebrity in born_list:
+        born_message += f'[{celebrity[0]}](https://www.imdb.com{celebrity[1]})\n'
+
+    bot.send_message(
+        kinochat_id,
+        born_message,
+        parse_mode='Markdown'
+    )
+
+
+def notifications():
+    schedule.every().day.at('12:00').do(born_today_cron())
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+
+
 @bot.message_handler(content_types=['text'])
 def send_text(message):
     hello_list = ['привет', 'hello', 'hi', 'приветствую', 'здравствуй', 'здравствуйте', 'хелло', 'хэлло', 'йоу',
@@ -284,3 +320,4 @@ def send_text(message):
 
 
 bot.polling()
+notifications()
