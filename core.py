@@ -255,7 +255,7 @@ def random_actor(message):
 
     born_message = f'Сегодня родились знаменитости:\n'
     for celebrity in born_list:
-        born_message.join(f'[{celebrity[0]}](https://www.imdb.com{celebrity[1]})\n')
+        born_message += f'[{celebrity[0]}](https://www.imdb.com{celebrity[1]})\n'
 
     bot.send_message(
         message.chat.id,
