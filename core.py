@@ -294,7 +294,7 @@ def born_today_cron():
 
 
 def notifications():
-    schedule.every().day.at('12:00').do(born_today_cron())
+    schedule.every().day.at('10:00').do(born_today_cron())
     while True:
         schedule.run_pending()
         time.sleep(1)
