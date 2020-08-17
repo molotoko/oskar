@@ -97,7 +97,9 @@ def help_me(message):
         f'/vip определит особо голосистого участника этого голосования: '
         f'может отдать 4 голоса вместо 2, максимум 2 за 1 фильм;\n'
         f'/kinoman даст одному из вас возможность сразу предложить фильм вне очереди.\n'
-        f'/droed пнуть робота.',
+        f'/droed пнуть робота.\n'
+        f'/date сходить на свидание с оскароносцем!\n'
+        f'/born узнать, кто из знаменитостей родился сегодня.\n',
         parse_mode='Markdown'
     )
 
@@ -232,6 +234,32 @@ def random_actor(message):
         message.chat.id,
         f'Ты идешь на свидание с *{actor_name}*!\n'
         f'https://www.imdb.com{actor_link}',
+        parse_mode='Markdown'
+    )
+
+
+@bot.message_handler(commands=['born'])
+def random_actor(message):
+    request_link = 'https://www.imdb.com/feature/bornondate/'
+    page = requests.get(request_link)
+    tree = html.fromstring(page.text)
+
+    born_list = []
+    celebrities = tree.find_class('lister-item')[:5]
+
+    for celebrity in celebrities:
+        celebrity_anchor = celebrity.find_class('lister-item-header')[0].find('a')
+        celebrity_name = celebrity_anchor.text_content().strip()
+        celebrity_link = celebrity_anchor.attrib['href']
+        born_list.append([celebrity_name, celebrity_link])
+
+    born_message = f'Сегодня родились знаменитости:\n'
+    for celebrity in born_list:
+        born_message.join(f'[{celebrity[0]}](https://www.imdb.com{celebrity[1]})\n')
+
+    bot.send_message(
+        message.chat.id,
+        born_message,
         parse_mode='Markdown'
     )
 
