@@ -66,7 +66,12 @@ members_list = [
     {
         'username': '@beforescriptum',
         'gender': 'female'
+    },
+    {
+        'username': '@MoshWayne',
+        'gender': 'male'
     }
+
 ]
 stickers_list = {
     'droed': 'CAACAgIAAxkBAAO1Xrs0GAK_ts-_2AG5lhTO2VwRTS4AAl0BAAJEyQkHfIbn433Oi2gZBA',
