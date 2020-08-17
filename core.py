@@ -7,8 +7,71 @@ from config import telegram_api_key
 
 bot = telebot.TeleBot(telegram_api_key)
 members_list = [
-    '@molotoko', '@HKEY47', '@mikmall', '@madurmanov', '@fyvdlo', '@wilddeer', '@Henpukuhime', '@anechka_persik',
-    '@sleepercat0_0', '@Milli_M', '@Dart_gedark', '@nogpyra', '@tsynali', '@kokos_89', '@beforescriptum', '@MoshWayne'
+    {
+        'username': '@molotoko',
+        'gender': 'female'
+    },
+    {
+        'username': '@HKEY47',
+        'gender': 'male'
+    },
+    {
+        'username': '@mikmall',
+        'gender': 'male'
+    },
+    {
+        'username': '@madurmanov',
+        'gender': 'male'
+    },
+    {
+        'username': '@fyvdlo',
+        'gender': 'male'
+    },
+    {
+        'username': '@wilddeer',
+        'gender': 'male'
+    },
+    {
+        'username': '@Henpukuhime',
+        'gender': 'female'
+    },
+    {
+        'username': '@anechka_persik',
+        'gender': 'female'
+    },
+    {
+        'username': '@sleepercat0_0',
+        'gender': 'female'
+    },
+    {
+        'username': '@Milli_M',
+        'gender': 'female'
+    },
+    {
+        'username': '@Dart_gedark',
+        'gender': 'male'
+    },
+    {
+        'username': '@nogpyra',
+        'gender': 'female'
+    },
+    {
+        'username': '@tsynali',
+        'gender': 'female'
+    },
+    {
+        'username': '@kokos_89',
+        'gender': 'male'
+    },
+    {
+        'username': '@beforescriptum',
+        'gender': 'female'
+    },
+    {
+        'username': '@MoshWayne',
+        'gender': 'male'
+    }
+
 ]
 stickers_list = {
     'droed': 'CAACAgIAAxkBAAO1Xrs0GAK_ts-_2AG5lhTO2VwRTS4AAl0BAAJEyQkHfIbn433Oi2gZBA',
@@ -93,10 +156,11 @@ def random_genre(message):
 @bot.message_handler(commands=['vip'])
 def get_vip(message):
     random_member = random.choice(members_list)
+    random_member_username = random_member['username']
 
     bot.send_message(
         message.chat.id,
-        f'Киноман *{random_member}* получил статус *VIP*. Это значит, что он имеет 4 голоса вместо 2 и может '
+        f'Киноман *{random_member_username}* получил статус *VIP*. Это значит, что он имеет 4 голоса вместо 2 и может '
         f'распределить их как угодно, но не более 2 голосов за 1 фильм.',
         parse_mode='Markdown'
     )
@@ -105,10 +169,11 @@ def get_vip(message):
 @bot.message_handler(commands=['kinoman'])
 def kinoman_of_the_week(message):
     random_member = random.choice(members_list)
+    random_member_username = random_member['username']
 
     bot.send_message(
         message.chat.id,
-        f'Киноман *{random_member}* становится почетным *Киноманом Недели*. '
+        f'Киноман *{random_member_username}* становится почетным *Киноманом Недели*. '
         f'Он может предложить любой фильм к просмотру вне очереди!',
         parse_mode='Markdown'
     )
@@ -117,10 +182,11 @@ def kinoman_of_the_week(message):
 @bot.message_handler(commands=['santa'])
 def santa(message):
     random_member = random.choice(members_list)
+    random_member_username = random_member['username']
 
     bot.send_message(
         message.chat.id,
-        f'Киноман *{random_member}* становится Сантой. '
+        f'Киноман *{random_member_username}* становится Сантой. '
         f'Он может предложить любой фильм к просмотру вне очереди!\n'
         f'Этот фильм мы занесем в Коллективные просмотры!',
         parse_mode='Markdown'
@@ -131,6 +197,43 @@ def santa(message):
 def go_to_work(message):
     bot.send_sticker(message.chat.id, stickers_list['droed'])
     bot.send_sticker(message.chat.id, stickers_list['droed_work'])
+
+
+@bot.message_handler(commands=['date'])
+def random_actor(message):
+    username = f'@{message.from_user.username}'
+
+    member_gender = None
+    for member in members_list:
+        if member['username'] == username:
+            member_gender = member['gender']
+            break
+
+    request_link = 'https://www.imdb.com/search/name/?groups=oscar_winner,oscar_nominee&count=100'
+    request_gender = None
+    if member_gender == 'male':
+        request_gender = 'female'
+    elif member_gender == 'female':
+        request_gender = 'male'
+
+    if request_gender:
+        request_link = f'{request_link}&gender={request_gender}'
+
+    page = requests.get(request_link)
+    tree = html.fromstring(page.text)
+
+    actors = tree.find_class('lister-item')
+    actor = random.choice(actors)
+    actor_anchor = actor.find_class('lister-item-header')[0].find('a')
+    actor_name = actor_anchor.text_content().strip()
+    actor_link = actor_anchor.attrib['href']
+
+    bot.send_message(
+        message.chat.id,
+        f'Ты идешь на свидание с *{actor_name}*!\n'
+        f'https://www.imdb.com{actor_link}',
+        parse_mode='Markdown'
+    )
 
 
 @bot.message_handler(content_types=['text'])
