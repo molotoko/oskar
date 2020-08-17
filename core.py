@@ -8,7 +8,7 @@ from config import telegram_api_key
 bot = telebot.TeleBot(telegram_api_key)
 members_list = [
     '@molotoko', '@HKEY47', '@mikmall', '@madurmanov', '@fyvdlo', '@wilddeer', '@Henpukuhime', '@anechka_persik',
-    '@sleepercat0_0', '@Milli_M', '@Dart_gedark', '@nogpyra', '@tsynali', '@kokos_89', '@beforescriptum'
+    '@sleepercat0_0', '@Milli_M', '@Dart_gedark', '@nogpyra', '@tsynali', '@kokos_89', '@beforescriptum', '@MoshWayne'
 ]
 stickers_list = {
     'droed': 'CAACAgIAAxkBAAO1Xrs0GAK_ts-_2AG5lhTO2VwRTS4AAl0BAAJEyQkHfIbn433Oi2gZBA',
