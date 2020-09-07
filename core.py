@@ -149,8 +149,8 @@ def random_actor(message):
     actor_name = actor['name']
     actor_link = actor['link']
 
-    bot.send_message(
-        message.chat.id,
+    bot.reply_to(
+        message,
         f'Ты идешь на свидание с *{actor_name}*!\n'
         f'{actor_link}',
         parse_mode='Markdown'
