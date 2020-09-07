@@ -205,6 +205,32 @@ def go_to_work(message):
     bot.send_sticker(message.chat.id, stickers_list['droed_work'])
 
 
+def get_random_actor(gender):
+    link = 'https://www.imdb.com/search/name/?groups=oscar_winner,oscar_nominee&count=100'
+
+    if gender:
+        link = f'{link}&gender={gender}'
+
+    actors_request = requests.get(link)
+    actors_tree = html.fromstring(actors_request.text)
+    actors = actors_tree.find_class('lister-item')
+
+    actor = random.choice(actors).find_class('lister-item-header')[0].find('a')
+    actor_name = actor.text_content().strip()
+    actor_href = actor.attrib['href']
+    actor_link = f'https://www.imdb.com{actor_href}'
+
+    actor_request = requests.get(actor_link)
+    actor_tree = html.fromstring(actor_request.text)
+    actor_death_info = actor_tree.xpath('//div[@id="name-death-info"]')
+
+    return {
+        'name': actor_name,
+        'link': actor_link,
+        'alive': False if len(actor_death_info) else True
+    }
+
+
 @bot.message_handler(commands=['date'])
 def random_actor(message):
     username = f'@{message.from_user.username}'
@@ -215,29 +241,25 @@ def random_actor(message):
             member_gender = member['gender']
             break
 
-    request_link = 'https://www.imdb.com/search/name/?groups=oscar_winner,oscar_nominee&count=100'
     request_gender = None
     if member_gender == 'male':
         request_gender = 'female'
     elif member_gender == 'female':
         request_gender = 'male'
 
-    if request_gender:
-        request_link = f'{request_link}&gender={request_gender}'
+    actor = None
+    while actor == None:
+        random_actor = get_random_actor(request_gender)
+        if random_actor['alive']:
+            actor = random_actor
 
-    page = requests.get(request_link)
-    tree = html.fromstring(page.text)
-
-    actors = tree.find_class('lister-item')
-    actor = random.choice(actors)
-    actor_anchor = actor.find_class('lister-item-header')[0].find('a')
-    actor_name = actor_anchor.text_content().strip()
-    actor_link = actor_anchor.attrib['href']
+    actor_name = actor['name']
+    actor_link = actor['link']
 
     bot.send_message(
         message.chat.id,
         f'Ты идешь на свидание с *{actor_name}*!\n'
-        f'https://www.imdb.com{actor_link}',
+        f'{actor_link}',
         parse_mode='Markdown'
     )
 
