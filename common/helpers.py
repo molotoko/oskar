@@ -2,7 +2,7 @@ import random
 import requests
 import lxml.html as html
 
-from vars import members_list
+from .vars import members_list
 
 
 def random_member():
@@ -35,3 +35,28 @@ def get_random_actor(gender):
         'link': actor_link,
         'alive': False if len(actor_death_info) else True
     }
+
+
+def born_today():
+    request_link = 'https://www.imdb.com/feature/bornondate/'
+    page = requests.get(request_link)
+    tree = html.fromstring(page.text)
+
+    born_list = []
+    celebrities = tree.find_class('lister-item')[:5]
+
+    for celebrity in celebrities:
+        celebrity_anchor = celebrity.find_class('lister-item-header')[0].find('a')
+        celebrity_name = celebrity_anchor.text_content().strip()
+        celebrity_link = celebrity_anchor.attrib['href']
+        born_list.append([celebrity_name, celebrity_link])
+
+    born_message = f'Сегодня родились знаменитости:\n'
+    for celebrity in born_list:
+        born_message += f'[{celebrity[0]}](https://www.imdb.com{celebrity[1]})\n'
+
+    return born_message
+
+# @bot.message_handler(content_types=['sticker'])
+# def send_sticker_id(message):
+#     bot.send_message(message.chat.id, message.sticker.file_id)
