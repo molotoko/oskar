@@ -37,6 +37,26 @@ def get_random_actor(gender):
     }
 
 
+def get_random_director():
+    # get 250 best directors list from IMDB
+    page_number = random.choice([1, 2, 3])
+    link = f'https://www.imdb.com/list/ls008344500/?sort=list_order,asc&mode=detail&page={page_number}'
+
+    directors_request = requests.get(link)
+    directors_tree = html.fromstring(directors_request.text)
+    directors = directors_tree.find_class('lister-item')
+
+    director = random.choice(directors).find_class('lister-item-header')[0].find('a')
+    director_name = director.text_content().strip()
+    director_href = director.attrib['href']
+    director_link = f'https://www.imdb.com{director_href}'
+
+    return {
+        'name': director_name,
+        'link': director_link
+    }
+
+
 def born_today():
     request_link = 'https://www.imdb.com/feature/bornondate/'
     page = requests.get(request_link)

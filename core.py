@@ -9,7 +9,7 @@ from threading import Thread
 
 from common.config import telegram_api_key
 from common.vars import kinochat_id, members_list, help_msg, stickers_list, genre_list
-from common.helpers import random_member, get_random_actor, born_today
+from common.helpers import random_member, get_random_actor, get_random_director, born_today
 
 bot = telebot.TeleBot(telegram_api_key)
 
@@ -130,6 +130,19 @@ def random_actor(message):
         f'Ты идешь на свидание с *{actor_name}*!\n{actor_link}',
         parse_mode='Markdown',
         reply_to_message_id=message.message_id
+    )
+
+
+@bot.message_handler(commands=['director'])
+def random_director(message):
+    director = get_random_director()
+    director_name = director['name']
+    director_link = director['link']
+
+    bot.send_message(
+        message.chat.id,
+        f'Обсуждаем режиссера *{director_name}*!\n{director_link}',
+        parse_mode='Markdown'
     )
 
 
