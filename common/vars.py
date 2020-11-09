@@ -6,7 +6,7 @@ members_list = [
         'gender': 'female'
     },
     {
-        'username': '@HKEY47',
+        'username': '@droed',
         'gender': 'male'
     },
     {
