@@ -12,10 +12,12 @@ def random_member():
 
 
 def get_random_actor(gender):
-    link = 'https://www.imdb.com/search/name/?groups=oscar_winner,oscar_nominee&count=100'
+    link_old = 'https://www.imdb.com/search/name/?groups=oscar_winner,oscar_nominee&count=100'
+    link = 'https://www.imdb.com/search/name/?count=100'
+    start = random.randint(1, 500)
 
     if gender:
-        link = f'{link}&gender={gender}'
+        link = f'{link}&gender={gender}&start={start}'
 
     actors_request = requests.get(link)
     actors_tree = html.fromstring(actors_request.text)

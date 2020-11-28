@@ -117,7 +117,7 @@ def random_actor(message):
     request_gender = 'female' if member_gender == 'male' else 'male'
 
     actor = None
-    while actor == None:
+    while not actor:
         random_actor = get_random_actor(request_gender)
         if random_actor['alive']:
             actor = random_actor
