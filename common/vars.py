@@ -18,10 +18,6 @@ members_list = [
         'gender': 'male'
     },
     {
-        'username': '@fyvdlo',
-        'gender': 'male'
-    },
-    {
         'username': '@wilddeer',
         'gender': 'male'
     },
@@ -60,13 +56,9 @@ members_list = [
     {
         'username': '@beforescriptum',
         'gender': 'female'
-    },
-    {
-        'username': '@MoshWayne',
-        'gender': 'male'
     }
-
 ]
+
 help_msg = (f'Добро пожаловать к Оскару в Киноклуб! Не считая меня, в клубе уже *{len(members_list)}* участников! '
             f'Ниже представлен список моих услуг. '
             f'Помните: судьба может сыграть с вами злую шутку!\n'
